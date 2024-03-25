@@ -1,0 +1,64 @@
+<%- include('layout/header') %>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary">
+                    <h5 class="text-light">Add New User</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/add" method="post" id="add-form" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        <div class="mb-3">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" class="form-control form-control-lg" placeholder="Enter Name" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Enter Email" required/>
+                            <div id="email-error" class="text-danger"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone">Phone</label>
+                            <input type="tel" name="phone" id="phone" class="form-control form-control-lg" placeholder="Enter Phone" required/>
+                            <div id="phone-error" class="text-danger"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Select Image</label>
+                            <input type="file" name="image" class="form-control form-control-lg" required/>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" name="submit" value="Add User" class="btn btn-primary btn-lg" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%- include('layout/footer') %>
+<script>
+    function validateForm() {
+        let email = document.getElementById('email').value;
+        let phone = document.getElementById('phone').value;
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let phonePattern = /^\d{10}$/;
+
+        if (!emailPattern.test(email)) {
+            document.getElementById('email-error').innerHTML = 'Please enter a valid email address.';
+            return false;
+        } else {
+            document.getElementById('email-error').innerHTML = '';
+        }
+
+        if (!phonePattern.test(phone)) {
+            document.getElementById('phone-error').innerHTML = 'Please enter a 10-digit phone number.';
+            return false;
+        } else {
+            document.getElementById('phone-error').innerHTML = '';
+        }
+
+        return true;
+    }
+</script>
